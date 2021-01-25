@@ -8,15 +8,35 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "IC_Input",
+"language": "GDScript",
+"path": "res://intcom/scripts/Input.gd"
+}, {
+"base": "Node2D",
+"class": "IC_Sequencer",
+"language": "GDScript",
+"path": "res://Sequencer.gd"
+} ]
 _global_script_class_icons={
-
+"IC_Input": "",
+"IC_Sequencer": ""
 }
 
 [application]
 
 config/name="Godot Interactive Comic Plugin"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=960
+window/size/test_height=540
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [rendering]
 

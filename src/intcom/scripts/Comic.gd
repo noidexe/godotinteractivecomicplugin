@@ -4,15 +4,17 @@ onready var transitions = $transitions
 var is_transitioning = false
 
 func show_next():
-	if is_transitioning:
-		return
+	#if is_transitioning:
+	#	return
 	.show_next()
-	transitions.play(str(current))
+	transitions.next()
+	#transitions.play(str(current))
 	
 func show_previous():
-	if is_transitioning:
-		return
-	transitions.play_backwards(str(current))
+	#if is_transitioning:
+	#	return
+	#transitions.play_backwards(str(current))
+	transitions.back()
 	.show_previous()
 	
 

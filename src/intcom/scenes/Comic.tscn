@@ -240,7 +240,7 @@ tracks/18/enabled = true
 tracks/18/keys = {
 "times": PoolRealArray( 0, 1, 4, 5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 1.0, 0.4, 2.0, 0.5 ]
 }
 
@@ -264,41 +264,43 @@ autoplay = "transitions"
 playback_process_mode = 0
 anims/transitions = SubResource( 1 )
 script = ExtResource( 10 )
-transition_length = 0.5
+transition_length = 2.0
 
 [node name="keyboard" type="Node" parent="."]
 script = ExtResource( 1 )
 
 [node name="1-1" type="Sprite" parent="."]
-position = Vector2( 1000.21, -1542.25 )
+position = Vector2( 1000.21, -185.014 )
 texture = ExtResource( 9 )
 
 [node name="1-2" type="Sprite" parent="."]
-position = Vector2( 629.924, -921.211 )
+position = Vector2( 629.924, 436.024 )
 texture = ExtResource( 8 )
 __meta__ = {
 "_editor_description_": "aa"
 }
 
 [node name="1-3" type="Sprite" parent="."]
-position = Vector2( 957.142, -923.591 )
+position = Vector2( 957.142, 433.644 )
 texture = ExtResource( 3 )
 
 [node name="1-4" type="Sprite" parent="."]
-position = Vector2( 1324.54, -921.031 )
+position = Vector2( 1324.54, 436.204 )
 texture = ExtResource( 7 )
 
 [node name="1-5" type="Sprite" parent="."]
-position = Vector2( 996.786, -299.281 )
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 988.713, 1529.32 )
 scale = Vector2( 1.99893, 1.99893 )
 texture = ExtResource( 4 )
 
 [node name="1-6" type="Sprite" parent="."]
-position = Vector2( 1006.68, 555.832 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 989.745, 1576.85 )
 scale = Vector2( 2.06332, 2.06332 )
 texture = ExtResource( 5 )
 
 [node name="debug" parent="." instance=ExtResource( 11 )]
 path_to_node = NodePath("../transitions")
-properties = [ "frame", "target_frame", "current_animation_position", "forward", "is_transitioning" ]
+properties = [ "frame", "target_frame", "current_animation_position", "forward", "is_transitioning", "transition_length" ]
 signals = [ "transition_started", "transition_finished" ]

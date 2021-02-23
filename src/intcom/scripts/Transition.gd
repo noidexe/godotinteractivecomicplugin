@@ -13,6 +13,7 @@ signal transition_finished()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playback_process_mode = AnimationPlayer.ANIMATION_PROCESS_MANUAL
+	_fix_backwards_transition_length()
 	pass # Replace with function body.
 
 func _process(delta):
@@ -53,9 +54,12 @@ func _update_is_transitioning():
 		is_transitioning = true
 		emit_signal("transition_started")
 	
-func _fix_backward_transition_lenght():
+func _fix_backwards_transition_length():
 	var anim : Animation = get_animation("transitions")
 	var track = anim.find_track("transitions:transition_length")
+	if track == -1:
+		return
+	anim.track_set_interpolation_type(track,Animation.INTERPOLATION_NEAREST)
 	var key_count = anim.track_get_key_count(track)
 	var backwards_keys = []
 	for i in range(1,key_count):
@@ -64,3 +68,4 @@ func _fix_backward_transition_lenght():
 		backwards_keys.append([time,value])
 	for key in backwards_keys:
 		anim.track_insert_key(track,key[0],key[1])
+	print(backwards_keys)

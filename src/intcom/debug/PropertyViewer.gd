@@ -57,12 +57,13 @@ func _connect_signals():
 		if not (node.has_signal(sig) or node.has_user_signal(sig) or node_script.has_script_signal(sig)):
 			printerr("Signal %s not found in %s" % [sig, node])
 			continue
+# warning-ignore:return_value_discarded
 		node.connect(sig, self, "_on_signal_emitted", [sig])
 	pass
 	
 func _disconnect_signals():
 	for sig in signals:
-		if not (node.has_signal(sig) or node.has_user_signal(sig) or node_script.has_script_signal(sig)):
+		if not (node.has_signal(sig) or node.has_user_signal(sig) or (node_script and node_script.has_script_signal(sig)) ):
 			continue
 		node.disconnect(sig, self, "_on_signal_emitted")
 	pass

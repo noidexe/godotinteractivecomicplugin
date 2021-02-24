@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://demo/images/1-6.jpg" type="Texture" id=5]
+[ext_resource path="res://intcom/scripts/Comic.gd" type="Script" id=9]
+[ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "transitions"
+length = 2.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("narrative:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ballon:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("transitions:transition_length")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.4, 0.2 ]
+}
+
+[node name="Panel" type="Position2D"]
+script = ExtResource( 9 )
+
+[node name="transitions" type="AnimationPlayer" parent="."]
+autoplay = "transitions"
+playback_process_mode = 0
+anims/transitions = SubResource( 1 )
+script = ExtResource( 11 )
+
+[node name="1-6" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+centered = false
+
+[node name="narrative" type="Polygon2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+color = Color( 0.905882, 0.890196, 0.490196, 1 )
+polygon = PoolVector2Array( 27, 25, 27, 86, 190, 91, 184, 25 )
+
+[node name="ballon" type="Polygon2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -68, -1 )
+polygon = PoolVector2Array( 385, 328, 384, 390, 519, 391, 518, 323, 446, 327, 391, 305, 427, 332 )

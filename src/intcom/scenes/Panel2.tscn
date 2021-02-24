@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://demo/images/1-2.jpg" type="Texture" id=1]
+[ext_resource path="res://intcom/scripts/Comic.gd" type="Script" id=2]
+[ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=3]
+[ext_resource path="res://intcom/debug/PropertyViewer.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "transitions"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("balloon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Panel2" type="Position2D"]
+script = ExtResource( 2 )
+
+[node name="transitions" type="AnimationPlayer" parent="."]
+autoplay = "transitions"
+playback_process_mode = 0
+anims/transitions = SubResource( 1 )
+script = ExtResource( 3 )
+transition_length = 0.2
+
+[node name="1-2" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="balloon" type="Polygon2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+polygon = PoolVector2Array( 46, 70, 23, 105, 61, 143, 178, 144, 208, 107, 177, 65, 134, 61, 158, 26, 115, 58 )
+
+[node name="debug" parent="." instance=ExtResource( 4 )]
+path_to_node = NodePath("../transitions")
+properties = [ "frame", "target_frame", "current_animation_position", "forward", "is_transitioning", "transition_length", "at_start", "at_end" ]
+signals = [ "transition_started", "transition_finished", "frame_reached" ]
+enabled = false

@@ -115,4 +115,5 @@ func _get_subtransitions() -> Dictionary:
 		var time = int(anim.track_get_key_time(track, i))
 		var value = anim.track_get_key_value(track, i)
 		ret[time] = value
+	anim.track_set_enabled(track, false)
 	return ret

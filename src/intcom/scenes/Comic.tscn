@@ -201,7 +201,7 @@ tracks/15/path = NodePath(".:subtransition_target")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
-tracks/15/enabled = false
+tracks/15/enabled = true
 tracks/15/keys = {
 "times": PoolRealArray( 2, 6 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -238,6 +238,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 665.757 ]
 }
+subtransition_target = NodePath("P2")
 
 [node name="bg" type="CanvasLayer" parent="."]
 layer = -1
@@ -256,29 +257,27 @@ autoplay = "transitions"
 playback_process_mode = 0
 anims/transitions = SubResource( 1 )
 script = ExtResource( 10 )
-transition_length = 0.533333
+transition_length = 1.65333
 
 [node name="keyboard" type="Node" parent="."]
 script = ExtResource( 1 )
 
 [node name="1-1" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 2658.27, 525.581 )
+position = Vector2( 1000.21, -185.014 )
 texture = ExtResource( 9 )
 
 [node name="1-3" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 2202.87, 433.644 )
+position = Vector2( 957.142, 433.644 )
 texture = ExtResource( 3 )
 
 [node name="1-4" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 2327.44, 436.204 )
+position = Vector2( 2081.73, 436.204 )
 texture = ExtResource( 7 )
 
 [node name="1-5" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 956.423, 1565.55 )
+modulate = Color( 0.1625, 0.1625, 0.1625, 0.8375 )
+position = Vector2( 983.466, 1535.21 )
 scale = Vector2( 1.99893, 1.99893 )
 texture = ExtResource( 4 )
 
@@ -293,5 +292,4 @@ properties = [ "frame", "target_frame", "current_animation_position", "forward",
 signals = [ "transition_started", "transition_finished", "frame_reached" ]
 
 [node name="P2" parent="." instance=ExtResource( 13 )]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 2041.05, 243.139 )
+position = Vector2( 447.79, 243.139 )

@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "IC_Sequencer",
 "language": "GDScript",
-"path": "res://Sequencer.gd"
+"path": "res://intcom/scripts/Sequencer.gd"
 } ]
 _global_script_class_icons={
 "IC_Input": "",

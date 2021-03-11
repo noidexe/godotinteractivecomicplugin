@@ -1,9 +1,19 @@
-extends IC_Sequencer
+extends Node2D
+class_name IC_Sequencer
 
-onready var transitions = $transitions
+enum { BACKWARDS, FORWARD }
+
+var current:int = 0
 var is_transitioning = false
 
+onready var transitions = $transitions
+
 export(NodePath) var subtransition_target = NodePath()
+
+# warning-ignore:unused_signal
+signal transition_started(id)
+# warning-ignore:unused_signal
+signal transition_ended(id)
 
 func _ready():
 	transitions.connect("frame_reached", self, "_on_frame_reached")
@@ -11,12 +21,7 @@ func _ready():
 	transitions.connect("transition_finished", self, "_on_transition_finished")
 
 func show_next():
-	.show_next()
-	subtransition_target = transitions.subtransitions.get(current, NodePath())
-	if is_transitioning:
-		subtransition_target = NodePath()
-	if subtransition_target and get_node(subtransition_target).transitions.at_end:
-		subtransition_target = NodePath()
+	subtransition_target = _get_subtransition_target(FORWARD)
 	if not subtransition_target.is_empty() and not get_node(subtransition_target).transitions.at_end:
 		get_node(subtransition_target).show_next()
 	else:
@@ -24,12 +29,7 @@ func show_next():
 
 	
 func show_previous():
-	.show_previous()
-	subtransition_target = transitions.subtransitions.get(current, NodePath())
-	if is_transitioning:
-		subtransition_target = NodePath()
-	if subtransition_target and get_node(subtransition_target).transitions.at_start:
-		subtransition_target = NodePath()
+	subtransition_target = _get_subtransition_target(BACKWARDS)
 	if not subtransition_target.is_empty() and not get_node(subtransition_target).transitions.at_start:
 		get_node(subtransition_target).show_previous()
 	else:
@@ -59,3 +59,15 @@ func update_parallax(_motion:Vector2):
 func _on_frame_reached(cur, _prev):
 	current = cur
 
+func _get_subtransition_target(direction:int) -> NodePath:
+	if is_transitioning:
+		return NodePath()
+	var new_target = transitions.subtransitions.get(current, NodePath())
+	if not new_target:
+		return NodePath()
+	if direction == FORWARD and get_node(new_target).transitions.at_end:
+		return NodePath()
+	if direction == BACKWARDS and get_node(new_target).transitions.at_start:
+		return NodePath()
+	return new_target
+	

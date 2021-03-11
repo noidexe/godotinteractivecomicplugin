@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://demo/images/1-2.jpg" type="Texture" id=1]
-[ext_resource path="res://intcom/scripts/Comic.gd" type="Script" id=2]
+[ext_resource path="res://intcom/scripts/Sequencer.gd" type="Script" id=2]
 [ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=3]
 [ext_resource path="res://intcom/debug/PropertyViewer.tscn" type="PackedScene" id=4]
 

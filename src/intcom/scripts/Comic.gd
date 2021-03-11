@@ -5,35 +5,44 @@ var is_transitioning = false
 
 export(NodePath) var subtransition_target = NodePath()
 
+func _ready():
+	transitions.connect("frame_reached", self, "_on_frame_reached")
+	transitions.connect("transition_started", self, "_on_transition_started")
+	transitions.connect("transition_finished", self, "_on_transition_finished")
+
 func show_next():
 	.show_next()
+	subtransition_target = transitions.subtransitions.get(current, NodePath())
+	if is_transitioning:
+		subtransition_target = NodePath()
 	if subtransition_target and get_node(subtransition_target).transitions.at_end:
 		subtransition_target = NodePath()
 	if not subtransition_target.is_empty() and not get_node(subtransition_target).transitions.at_end:
 		get_node(subtransition_target).show_next()
 	else:
 		transitions.next()
-	print(subtransition_target)
 
 	
 func show_previous():
 	.show_previous()
+	subtransition_target = transitions.subtransitions.get(current, NodePath())
+	if is_transitioning:
+		subtransition_target = NodePath()
 	if subtransition_target and get_node(subtransition_target).transitions.at_start:
 		subtransition_target = NodePath()
 	if not subtransition_target.is_empty() and not get_node(subtransition_target).transitions.at_start:
 		get_node(subtransition_target).show_previous()
 	else:
 		transitions.back()
-	print(subtransition_target)
 
 
-func _on_transitions_animation_started(anim_name):
+func _on_transition_started():
 	is_transitioning = true
-	emit_signal("transition_started", anim_name)
+	emit_signal("transition_started")
 
-func _on_transitions_animation_finished(anim_name):
+func _on_transition_finished():
 	is_transitioning = false
-	emit_signal("transition_ended", anim_name)
+	emit_signal("transition_ended")
 
 func register_input(input_handler:IC_Input):
 	if input_handler.connect("next_selected", self, "show_next") != OK:
@@ -47,6 +56,6 @@ func update_parallax(_motion:Vector2):
 	push_warning("Parallax motion unimplemented")
 
 
-func _on_transitions_frame_reached(cur, prev):
-	print(transitions.subtransitions.get(cur, NodePath()))
-	subtransition_target = transitions.subtransitions.get(cur, NodePath())
+func _on_frame_reached(cur, _prev):
+	current = cur
+

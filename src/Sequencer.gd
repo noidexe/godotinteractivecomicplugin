@@ -9,9 +9,9 @@ signal transition_started(id)
 signal transition_ended(id)
 
 func show_next() -> void:
-	current +=1
+	pass
 
 	
 func show_previous() -> void:
-	current -=1
+	pass
 

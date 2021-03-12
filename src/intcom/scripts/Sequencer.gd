@@ -16,6 +16,8 @@ signal transition_started(id)
 signal transition_ended(id)
 
 func _ready():
+	if Engine.editor_hint:
+		return
 	transitions.connect("frame_reached", self, "_on_frame_reached")
 	transitions.connect("transition_started", self, "_on_transition_started")
 	transitions.connect("transition_finished", self, "_on_transition_finished")
@@ -45,6 +47,8 @@ func _on_transition_finished():
 	emit_signal("transition_ended")
 
 func register_input(input_handler:IC_Input):
+	if Engine.editor_hint:
+		return
 	if input_handler.connect("next_selected", self, "show_next") != OK:
 		push_error("Error conecting next_selected")
 	if input_handler.connect("previous_selected", self, "show_previous") != OK:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://intcom/scripts/Sequencer.gd" type="Script" id=1]
+[ext_resource path="res://intcom/scenes/narrative.tscn" type="PackedScene" id=2]
 [ext_resource path="res://demo/images/1-6.jpg" type="Texture" id=5]
 [ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=11]
 
@@ -44,26 +45,36 @@ tracks/2/keys = {
 "update": 1,
 "values": [ 0.4, 0.2 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:subtransition_target")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("narrative") ]
+}
 
 [node name="Panel" type="Position2D"]
 script = ExtResource( 1 )
+subtransition_target = NodePath("narrative")
 
 [node name="transitions" type="AnimationPlayer" parent="."]
 autoplay = "transitions"
 playback_process_mode = 0
 anims/transitions = SubResource( 1 )
 script = ExtResource( 11 )
+transition_length = 0.2
 
 [node name="1-6" type="Sprite" parent="."]
 texture = ExtResource( 5 )
 centered = false
 
-[node name="narrative" type="Polygon2D" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-color = Color( 0.905882, 0.890196, 0.490196, 1 )
-polygon = PoolVector2Array( 27, 25, 27, 86, 190, 91, 184, 25 )
+[node name="narrative" parent="." instance=ExtResource( 2 )]
 
 [node name="ballon" type="Polygon2D" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -68, -1 )
 polygon = PoolVector2Array( 385, 328, 384, 390, 519, 391, 518, 323, 446, 327, 391, 305, 427, 332 )

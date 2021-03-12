@@ -40,7 +40,8 @@ window/stretch/aspect="keep"
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+batching/options/use_batching=false
+batching/options/use_batching_in_editor=false
 environment/default_environment="res://default_env.tres"

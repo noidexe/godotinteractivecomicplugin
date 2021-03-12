@@ -19,6 +19,7 @@ var subtransitions = Dictionary()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playback_process_mode = AnimationPlayer.ANIMATION_PROCESS_MANUAL
+	play("transitions")
 	_fix_backwards_transition_length()
 	subtransitions = _get_subtransitions()
 	print(subtransitions)

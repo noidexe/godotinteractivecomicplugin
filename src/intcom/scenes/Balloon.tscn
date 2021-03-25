@@ -5,45 +5,37 @@
 [ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=3]
 [ext_resource path="res://demo/balloons/flat.stylebox" type="StyleBox" id=4]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "transitions"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:text_percent_visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
 
 [node name="TextBalloon" type="Node2D"]
-position = Vector2( 8.90771, -4.36078 )
+position = Vector2( 360.217, 241.558 )
+scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 2 )
 text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. "
 padding_left = 50
 padding_right = 50
 padding_top = 50
 padding_bottom = 50
+size = Vector2( 1460, 644 )
+style = ExtResource( 4 )
 
 [node name="body" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -456.0
-margin_top = -191.0
-margin_right = 479.0
-margin_bottom = 222.0
+margin_left = -730.0
+margin_top = -322.0
+margin_right = 730.0
+margin_bottom = 322.0
 custom_styles/panel = ExtResource( 4 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
@@ -62,10 +54,10 @@ __meta__ = {
 
 [node name="text" type="Label" parent="body/margin"]
 margin_left = 50.0
-margin_top = 122.0
-margin_right = 885.0
-margin_bottom = 291.0
-custom_fonts/font = SubResource( 2 )
+margin_top = 280.0
+margin_right = 1410.0
+margin_bottom = 363.0
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. "
 align = 1
@@ -77,5 +69,5 @@ __meta__ = {
 }
 
 [node name="transitions" type="AnimationPlayer" parent="."]
-anims/transitions = SubResource( 3 )
+anims/transitions = SubResource( 2 )
 script = ExtResource( 3 )

@@ -67,10 +67,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 2, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="Panel" type="Position2D"]
@@ -96,6 +96,7 @@ position = Vector2( -68, -1 )
 polygon = PoolVector2Array( 385, 328, 384, 390, 519, 391, 518, 323, 446, 327, 391, 305, 427, 332 )
 
 [node name="TextBalloon" parent="." instance=ExtResource( 3 )]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 339.099, 149.423 )
 scale = Vector2( 0.239136, 0.239136 )
 text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet "

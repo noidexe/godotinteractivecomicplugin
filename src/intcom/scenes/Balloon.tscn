@@ -69,5 +69,6 @@ __meta__ = {
 }
 
 [node name="transitions" type="AnimationPlayer" parent="."]
+autoplay = "transitions"
 anims/transitions = SubResource( 2 )
 script = ExtResource( 3 )

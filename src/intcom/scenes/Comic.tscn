@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://intcom/scripts/Keyboard.gd" type="Script" id=1]
 [ext_resource path="res://intcom/scripts/Sequencer.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://intcom/debug/PropertyViewer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://intcom/scenes/Panel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://intcom/scenes/Panel2.tscn" type="PackedScene" id=13]
+[ext_resource path="res://intcom/scenes/UI.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "transitions"
@@ -300,3 +301,5 @@ enabled = false
 
 [node name="P2" parent="." instance=ExtResource( 13 )]
 position = Vector2( 447.79, -1107.54 )
+
+[node name="UI" parent="." instance=ExtResource( 15 )]

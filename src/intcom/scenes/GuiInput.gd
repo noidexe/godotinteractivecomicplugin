@@ -1,10 +1,45 @@
-extends IC_Input
+tool
+extends CanvasLayer
+
+export(Texture) var texture_prev setget set_texture_prev, get_texture_prev
+export(Texture) var texture_next setget set_texture_next, get_texture_next
+export(int,0,100) var margin  = 5 setget set_margin, get_margin
+onready var margin_container = $margin
+onready var prev_button = $margin/base/prev
+onready var next_button = $margin/base/next
+
+var initialized = false
+
+func _ready():
+	initialized = true
 
 
+func set_texture_prev(tex):
+	texture_prev = tex
+	if initialized:
+		prev_button.texture_normal = tex
+	
+func get_texture_prev():
+	if initialized:
+		return prev_button.texture_normal
+	
+func set_texture_next(tex):
+	texture_next = tex
+	if initialized:
+		next_button.texture_normal = tex
 
-func _on_prev_pressed():
-	emit_signal("previous_selected")
+func get_texture_next():
+	if initialized:
+		return next_button.texture_normal
 
+func set_margin(value:int):
+	margin = value
+	if initialized:
+		margin_container.set("custom_constants/margin_right", margin)
+		margin_container.set("custom_constants/margin_left", margin)
+	
+func get_margin():
+	return margin
 
-func _on_next_pressed():
-	emit_signal("next_selected")
+func register_input(target):
+	owner.register_input(target)

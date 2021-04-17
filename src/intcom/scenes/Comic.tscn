@@ -1,19 +1,19 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://intcom/scripts/Keyboard.gd" type="Script" id=1]
+[ext_resource path="res://intcom/scenes/Scrollwheel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://intcom/scripts/Sequencer.gd" type="Script" id=2]
 [ext_resource path="res://demo/images/1-3.jpg" type="Texture" id=3]
 [ext_resource path="res://demo/images/1-5.jpg" type="Texture" id=4]
-[ext_resource path="res://intcom/scripts/ScrollWheel.gd" type="Script" id=5]
+[ext_resource path="res://intcom/scenes/Keyboard.tscn" type="PackedScene" id=5]
 [ext_resource path="res://demo/images/bg-clean.jpg" type="Texture" id=6]
 [ext_resource path="res://demo/images/1-4.jpg" type="Texture" id=7]
-[ext_resource path="res://intcom/scripts/Swipe.gd" type="Script" id=8]
+[ext_resource path="res://intcom/scenes/Swipe.tscn" type="PackedScene" id=8]
 [ext_resource path="res://demo/images/1-1.jpg" type="Texture" id=9]
 [ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=10]
 [ext_resource path="res://intcom/debug/PropertyViewer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://intcom/scenes/Panel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://intcom/scenes/Panel2.tscn" type="PackedScene" id=13]
-[ext_resource path="res://intcom/scenes/UI.tscn" type="PackedScene" id=15]
+[ext_resource path="res://intcom/scenes/GuiInput.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "transitions"
@@ -263,14 +263,13 @@ anims/transitions = SubResource( 1 )
 script = ExtResource( 10 )
 transition_length = 0.5
 
-[node name="scrollwheel" type="Node" parent="."]
-script = ExtResource( 5 )
+[node name="scrollwheel" parent="." instance=ExtResource( 1 )]
 
-[node name="keyboard" type="Node" parent="."]
-script = ExtResource( 1 )
+[node name="keyboard" parent="." instance=ExtResource( 5 )]
 
-[node name="swipe" type="Node" parent="."]
-script = ExtResource( 8 )
+[node name="swipe" parent="." instance=ExtResource( 8 )]
+
+[node name="gui_input" parent="." instance=ExtResource( 15 )]
 
 [node name="1-1" type="Sprite" parent="."]
 position = Vector2( 1000.21, -1542.25 )
@@ -301,5 +300,3 @@ enabled = false
 
 [node name="P2" parent="." instance=ExtResource( 13 )]
 position = Vector2( 447.79, -1107.54 )
-
-[node name="UI" parent="." instance=ExtResource( 15 )]

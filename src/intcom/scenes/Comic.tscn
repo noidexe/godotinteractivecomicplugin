@@ -270,6 +270,7 @@ transition_length = 0.5
 [node name="swipe" parent="." instance=ExtResource( 8 )]
 
 [node name="gui_input" parent="." instance=ExtResource( 15 )]
+margin = 50
 
 [node name="1-1" type="Sprite" parent="."]
 position = Vector2( 1000.21, -1542.25 )

@@ -20,8 +20,7 @@ func set_texture_prev(tex):
 		prev_button.texture_normal = tex
 	
 func get_texture_prev():
-	if initialized:
-		return prev_button.texture_normal
+	return texture_prev
 	
 func set_texture_next(tex):
 	texture_next = tex
@@ -29,8 +28,7 @@ func set_texture_next(tex):
 		next_button.texture_normal = tex
 
 func get_texture_next():
-	if initialized:
-		return next_button.texture_normal
+	return texture_next
 
 func set_margin(value:int):
 	margin = value

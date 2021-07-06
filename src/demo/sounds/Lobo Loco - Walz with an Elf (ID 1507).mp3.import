@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Lobo Loco - Walz with an Elf (ID 1507).mp3-2c9bd84344992eec7867e994f8f831e4.mp3str"
+
+[deps]
+
+source_file="res://demo/sounds/Lobo Loco - Walz with an Elf (ID 1507).mp3"
+dest_files=[ "res://.import/Lobo Loco - Walz with an Elf (ID 1507).mp3-2c9bd84344992eec7867e994f8f831e4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -82,21 +82,19 @@ autoplay = "transitions"
 playback_process_mode = 0
 anims/transitions = SubResource( 1 )
 script = ExtResource( 11 )
+transition_length = 0.2
 
 [node name="1-6" type="Sprite" parent="."]
 texture = ExtResource( 5 )
 centered = false
 
 [node name="narrative" parent="." instance=ExtResource( 2 )]
-modulate = Color( 1, 1, 1, 0 )
 
 [node name="ballon" type="Polygon2D" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -68, -1 )
 polygon = PoolVector2Array( 385, 328, 384, 390, 519, 391, 518, 323, 446, 327, 391, 305, 427, 332 )
 
 [node name="TextBalloon" parent="." instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 339.099, 149.423 )
 scale = Vector2( 0.239136, 0.239136 )
 text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet "

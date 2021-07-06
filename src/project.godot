@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://intcom/scripts/Input.gd"
 }, {
+"base": "Node",
+"class": "IC_Music",
+"language": "GDScript",
+"path": "res://intcom/scenes/Music.gd"
+}, {
 "base": "Node2D",
 "class": "IC_Sequencer",
 "language": "GDScript",
@@ -27,6 +32,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "IC_Baloon": "",
 "IC_Input": "",
+"IC_Music": "",
 "IC_Sequencer": ""
 }
 
@@ -34,6 +40,10 @@ _global_script_class_icons={
 
 config/name="Godot Interactive Comic Plugin"
 config/icon="res://icon.png"
+
+[autoload]
+
+MusicPlayer="*res://intcom/singletons/MusicPlayer.tscn"
 
 [display]
 

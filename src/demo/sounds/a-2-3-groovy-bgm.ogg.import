@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/a-2-3-groovy-bgm.ogg-93b8a5133b94137056a3f1c99d3d05eb.oggstr"
+
+[deps]
+
+source_file="res://demo/sounds/a-2-3-groovy-bgm.ogg"
+dest_files=[ "res://.import/a-2-3-groovy-bgm.ogg-93b8a5133b94137056a3f1c99d3d05eb.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -21,6 +21,7 @@ func _ready():
 	playback_process_mode = AnimationPlayer.ANIMATION_PROCESS_MANUAL
 	play("transitions")
 	_fix_backwards_transition_length()
+	_fix_backwards_music_track()
 	subtransitions = _get_subtransitions()
 	print(subtransitions)
 	pass # Replace with function body.
@@ -95,6 +96,7 @@ func _fix_backwards_transition_length():
 	var track = anim.find_track("transitions:transition_length")
 	if track == -1:
 		return
+	anim.value_track_set_update_mode(track,Animation.UPDATE_CONTINUOUS)
 	anim.track_set_interpolation_type(track,Animation.INTERPOLATION_NEAREST)
 	var key_count = anim.track_get_key_count(track)
 	var backwards_keys = []
@@ -104,6 +106,24 @@ func _fix_backwards_transition_length():
 		backwards_keys.append([time,value])
 	for key in backwards_keys:
 		anim.track_insert_key(track,key[0],key[1])
+	
+func _fix_backwards_music_track():
+	var anim : Animation = get_animation("transitions")
+	var track = anim.find_track("Music:music_track")
+	if track == -1:
+		return
+	anim.value_track_set_update_mode(track,Animation.UPDATE_DISCRETE)
+	anim.track_set_interpolation_type(track,Animation.INTERPOLATION_NEAREST)
+	var key_count = anim.track_get_key_count(track)
+	var backwards_keys = []
+	print("pre",key_count)
+	for i in range(1,key_count):
+		var time = anim.track_get_key_time(track, i) - 0.1
+		var value = anim.track_get_key_value(track, i-1)
+		backwards_keys.append([time,value])
+	for key in backwards_keys:
+		anim.track_insert_key(track,key[0],key[1])
+	print("post",key_count)
 
 func _get_subtransitions() -> Dictionary:
 	var ret = Dictionary()
@@ -111,6 +131,7 @@ func _get_subtransitions() -> Dictionary:
 	var track = anim.find_track(".:subtransition_target")
 	if track == -1:
 		return ret
+	anim.value_track_set_update_mode(track,Animation.UPDATE_DISCRETE)
 	var key_count = anim.track_get_key_count(track)
 	for i in key_count:
 		var time = int(anim.track_get_key_time(track, i))

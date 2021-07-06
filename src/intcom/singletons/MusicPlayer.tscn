@@ -1,0 +1,153 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+\"\"\"
+Music singleton that handles crossfading when a new song starts
+and applies a low pass filter when the game is paused. Nothing too wise
+\"\"\"
+
+onready var current_track : AudioStreamPlayer = $A
+var current_stream : AudioStream
+
+var music_bus
+
+func _ready():
+	music_bus = AudioServer.get_bus_index(\"Music\")
+	if music_bus == -1:
+		music_bus = AudioServer.bus_count
+		AudioServer.add_bus(music_bus)
+		AudioServer.set_bus_name(music_bus, \"Music\")
+	$A.bus = \"Music\"
+	$B.bus = \"Music\"
+
+func play(stream):
+	if current_stream and current_stream == stream:
+		return
+	current_stream = stream
+	if current_track == $A:
+		$B.stream = stream
+		$anims.play(\"AtoB\")
+		current_track = $B
+	else:
+		$A.stream = stream
+		$anims.play(\"BtoA\")
+		current_track = $A
+
+"
+
+[sub_resource type="Animation" id=2]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("A:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -30.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("B:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -30.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("A:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("B:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("A:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -30.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("B:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -30.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("B:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("A:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="Music" type="Node"]
+pause_mode = 2
+script = SubResource( 1 )
+
+[node name="A" type="AudioStreamPlayer" parent="."]
+
+[node name="B" type="AudioStreamPlayer" parent="."]
+volume_db = -30.0
+
+[node name="anims" type="AnimationPlayer" parent="."]
+anims/AtoB = SubResource( 2 )
+anims/BtoA = SubResource( 3 )

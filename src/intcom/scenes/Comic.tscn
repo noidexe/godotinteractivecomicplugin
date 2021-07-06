@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://intcom/scenes/Scrollwheel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://intcom/scripts/Sequencer.gd" type="Script" id=2]
@@ -13,12 +13,15 @@
 [ext_resource path="res://intcom/debug/PropertyViewer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://intcom/scenes/Panel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://intcom/scenes/Panel2.tscn" type="PackedScene" id=13]
+[ext_resource path="res://demo/sounds/Lobo Loco - Walz with an Elf (ID 1507).mp3" type="AudioStream" id=14]
 [ext_resource path="res://intcom/scenes/GuiInput.tscn" type="PackedScene" id=15]
+[ext_resource path="res://intcom/scenes/Music.tscn" type="PackedScene" id=16]
+[ext_resource path="res://demo/sounds/a-2-3-groovy-bgm.ogg" type="AudioStream" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "transitions"
 length = 6.0
-step = 0.05
+step = 1.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("1-1:position")
 tracks/0/interp = 1
@@ -235,13 +238,25 @@ tracks/17/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/18/type = "value"
+tracks/18/path = NodePath("Music:music_track")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ null, ExtResource( 14 ), ExtResource( 17 ) ]
+}
 
 [node name="Comic" type="Position2D"]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 665.757 ]
 }
-subtransition_target = NodePath("P6")
+subtransition_target = NodePath("P2")
 
 [node name="bg" type="CanvasLayer" parent="."]
 layer = -1
@@ -261,7 +276,7 @@ autoplay = "transitions"
 playback_process_mode = 0
 anims/transitions = SubResource( 1 )
 script = ExtResource( 10 )
-transition_length = 0.5
+transition_length = 0.933333
 
 [node name="scrollwheel" parent="." instance=ExtResource( 1 )]
 
@@ -273,24 +288,28 @@ transition_length = 0.5
 margin = 50
 
 [node name="1-1" type="Sprite" parent="."]
-position = Vector2( 1000.21, -1542.25 )
+position = Vector2( 1000.21, -185.014 )
 texture = ExtResource( 9 )
 
 [node name="1-3" type="Sprite" parent="."]
-position = Vector2( 957.142, -923.591 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 2202.87, 433.644 )
 texture = ExtResource( 3 )
 
 [node name="1-4" type="Sprite" parent="."]
-position = Vector2( 1324.54, -921.031 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 2327.44, 436.204 )
 texture = ExtResource( 7 )
 
 [node name="1-5" type="Sprite" parent="."]
-position = Vector2( 996.786, -299.281 )
+modulate = Color( 0.5, 0.5, 0.5, 0.5 )
+position = Vector2( 972.568, 1547.44 )
 scale = Vector2( 1.99893, 1.99893 )
 texture = ExtResource( 4 )
 
 [node name="P6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 447.142, 152.219 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 447.142, 1117.85 )
 scale = Vector2( 2.09318, 2.09318 )
 
 [node name="debug" parent="." instance=ExtResource( 11 )]
@@ -300,4 +319,7 @@ signals = [ "transition_started", "transition_finished", "frame_reached" ]
 enabled = false
 
 [node name="P2" parent="." instance=ExtResource( 13 )]
-position = Vector2( 447.79, -1107.54 )
+position = Vector2( 447.79, 243.139 )
+
+[node name="Music" parent="." instance=ExtResource( 16 )]
+music_track = ExtResource( 14 )

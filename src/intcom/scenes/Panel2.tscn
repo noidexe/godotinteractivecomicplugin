@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://demo/images/1-2.jpg" type="Texture" id=1]
 [ext_resource path="res://intcom/scripts/Sequencer.gd" type="Script" id=2]
 [ext_resource path="res://intcom/scripts/Transition.gd" type="Script" id=3]
 [ext_resource path="res://intcom/debug/PropertyViewer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://intcom/scenes/SoundEffects.tscn" type="PackedScene" id=5]
+[ext_resource path="res://demo/sounds/sfx1.ogg" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "transitions"
-step = 1.0
+step = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("balloon:modulate")
 tracks/0/interp = 1
@@ -19,6 +21,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SoundEffects:sfx")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 6 ) ]
 }
 
 [node name="Panel2" type="Position2D"]
@@ -36,11 +50,13 @@ texture = ExtResource( 1 )
 centered = false
 
 [node name="balloon" type="Polygon2D" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 polygon = PoolVector2Array( 46, 70, 23, 105, 61, 143, 178, 144, 208, 107, 177, 65, 134, 61, 158, 26, 115, 58 )
 
 [node name="debug" parent="." instance=ExtResource( 4 )]
+enabled = false
 path_to_node = NodePath("../transitions")
 properties = [ "frame", "target_frame", "current_animation_position", "forward", "is_transitioning", "transition_length", "at_start", "at_end" ]
 signals = [ "transition_started", "transition_finished", "frame_reached" ]
-enabled = false
+
+[node name="SoundEffects" parent="." instance=ExtResource( 5 )]
+sfx = ExtResource( 6 )

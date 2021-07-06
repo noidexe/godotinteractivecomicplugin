@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "IC_Sequencer",
 "language": "GDScript",
 "path": "res://intcom/scripts/Sequencer.gd"
+}, {
+"base": "Node",
+"class": "IC_SoundEffects",
+"language": "GDScript",
+"path": "res://intcom/scenes/SoundEffects.gd"
 } ]
 _global_script_class_icons={
 "IC_Baloon": "",
 "IC_Input": "",
 "IC_Music": "",
-"IC_Sequencer": ""
+"IC_Sequencer": "",
+"IC_SoundEffects": ""
 }
 
 [application]
@@ -43,7 +49,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-MusicPlayer="*res://intcom/singletons/MusicPlayer.tscn"
+AudioPlayer="*res://intcom/singletons/AudioPlayer.tscn"
 
 [display]
 

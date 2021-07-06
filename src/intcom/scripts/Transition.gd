@@ -22,6 +22,7 @@ func _ready():
 	play("transitions")
 	_fix_backwards_transition_length()
 	_fix_backwards_music_track()
+	_fix_sfx_track()
 	subtransitions = _get_subtransitions()
 	print(subtransitions)
 	pass # Replace with function body.
@@ -116,14 +117,19 @@ func _fix_backwards_music_track():
 	anim.track_set_interpolation_type(track,Animation.INTERPOLATION_NEAREST)
 	var key_count = anim.track_get_key_count(track)
 	var backwards_keys = []
-	print("pre",key_count)
 	for i in range(1,key_count):
 		var time = anim.track_get_key_time(track, i) - 0.1
 		var value = anim.track_get_key_value(track, i-1)
 		backwards_keys.append([time,value])
 	for key in backwards_keys:
 		anim.track_insert_key(track,key[0],key[1])
-	print("post",key_count)
+
+func _fix_sfx_track():
+	var anim : Animation = get_animation("transitions")
+	var track = anim.find_track("SoundEffects:sfx")
+	if track == -1:
+		return
+	anim.value_track_set_update_mode(track,Animation.UPDATE_TRIGGER)
 
 func _get_subtransitions() -> Dictionary:
 	var ret = Dictionary()

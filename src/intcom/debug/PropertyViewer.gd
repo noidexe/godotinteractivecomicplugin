@@ -4,11 +4,11 @@ extends CanvasLayer
 This can be added to any scene and be use to show some properties for debug purposes
 """
 
+export(bool) var enabled = true setget _set_enabled, _get_enabled
 export(NodePath) var path_to_node = null
 export(Array, String) var properties = []
 export(Array, String) var signals = []
 var signal_message_queue = []
-export(bool) var enabled = true setget _set_enabled, _get_enabled
 
 var node :Node = Node.new()
 var node_script :Script

@@ -8,10 +8,18 @@ Music singleton that handles crossfading when a new song starts
 and applies a low pass filter when the game is paused. Nothing too wise
 \"\"\"
 
-onready var current_track : AudioStreamPlayer = $A
-var current_stream : AudioStream
+# MUSIC
+onready var music_track_a : AudioStreamPlayer = $Music/A
+onready var music_track_b : AudioStreamPlayer = $Music/B
+onready var music_transitions : AnimationPlayer = $Music/anims
+onready var current_track : AudioStreamPlayer = music_track_a
+var current_music_stream : AudioStream
+var music_bus : int
 
-var music_bus
+# SFX
+onready var sfx_channels : Array = $Sfx.get_children()
+onready var sfx_total_channels : int = $Sfx.get_child_count()
+var sfx_current_channel : int = 0
 
 func _ready():
 	music_bus = AudioServer.get_bus_index(\"Music\")
@@ -19,28 +27,33 @@ func _ready():
 		music_bus = AudioServer.bus_count
 		AudioServer.add_bus(music_bus)
 		AudioServer.set_bus_name(music_bus, \"Music\")
-	$A.bus = \"Music\"
-	$B.bus = \"Music\"
+	music_track_a.bus = \"Music\"
+	music_track_b.bus = \"Music\"
 
-func play(stream):
-	if current_stream and current_stream == stream:
+func play_music(stream : AudioStream):
+	if current_music_stream and current_music_stream == stream:
 		return
-	current_stream = stream
-	if current_track == $A:
-		$B.stream = stream
-		$anims.play(\"AtoB\")
-		current_track = $B
+	current_music_stream = stream
+	if current_track == music_track_a:
+		music_track_b.stream = stream
+		music_transitions.play(\"AtoB\")
+		current_track = music_track_b
 	else:
-		$A.stream = stream
-		$anims.play(\"BtoA\")
-		current_track = $A
+		music_track_a.stream = stream
+		music_transitions.play(\"BtoA\")
+		current_track = music_track_a
 
+func play_sfx(stream : AudioStream):
+	var ch : AudioStreamPlayer = sfx_channels[sfx_current_channel]
+	ch.stream = stream
+	ch.play()
+	sfx_current_channel = wrapi(sfx_current_channel + 1, 0, sfx_total_channels)
 "
 
 [sub_resource type="Animation" id=2]
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("A:volume_db")
+tracks/0/path = NodePath("Music/A:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -52,7 +65,7 @@ tracks/0/keys = {
 "values": [ 0.0, -30.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("B:volume_db")
+tracks/1/path = NodePath("Music/B:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -64,7 +77,7 @@ tracks/1/keys = {
 "values": [ -30.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("A:playing")
+tracks/2/path = NodePath("Music/A:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -76,7 +89,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("B:playing")
+tracks/3/path = NodePath("Music/B:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -91,7 +104,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=3]
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("A:volume_db")
+tracks/0/path = NodePath("Music/A:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -103,7 +116,7 @@ tracks/0/keys = {
 "values": [ -30.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("B:volume_db")
+tracks/1/path = NodePath("Music/B:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -115,7 +128,7 @@ tracks/1/keys = {
 "values": [ 0.0, -30.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("B:playing")
+tracks/2/path = NodePath("Music/B:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -127,7 +140,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("A:playing")
+tracks/3/path = NodePath("Music/A:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -139,15 +152,32 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[node name="Music" type="Node"]
+[node name="AudioPlayer" type="Node"]
 pause_mode = 2
 script = SubResource( 1 )
 
-[node name="A" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="Node" parent="."]
 
-[node name="B" type="AudioStreamPlayer" parent="."]
+[node name="A" type="AudioStreamPlayer" parent="Music"]
 volume_db = -30.0
 
-[node name="anims" type="AnimationPlayer" parent="."]
+[node name="B" type="AudioStreamPlayer" parent="Music"]
+
+[node name="anims" type="AnimationPlayer" parent="Music"]
+root_node = NodePath("../..")
 anims/AtoB = SubResource( 2 )
 anims/BtoA = SubResource( 3 )
+
+[node name="Sfx" type="Node" parent="."]
+
+[node name="ch0" type="AudioStreamPlayer" parent="Sfx"]
+
+[node name="ch1" type="AudioStreamPlayer" parent="Sfx"]
+
+[node name="ch2" type="AudioStreamPlayer" parent="Sfx"]
+
+[node name="ch3" type="AudioStreamPlayer" parent="Sfx"]
+
+[node name="ch4" type="AudioStreamPlayer" parent="Sfx"]
+
+[node name="ch5" type="AudioStreamPlayer" parent="Sfx"]
